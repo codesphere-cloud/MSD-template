@@ -95,7 +95,10 @@
 		<strong>Title: {tweet.title}</strong>
 		<p>{tweet.text}</p>
 		<div class="info-section-tweet">
-			<p>Likes: {tweet.likes ?? 0} | Dislikes: {tweet.dislikes ?? 0}</p>
+			<div class="likeContainer">
+				<p class="likeButton">Likes: {tweet.likes ?? 0}</p>
+				<p class="likeButton">Dislikes: {tweet.dislikes ?? 0}</p>
+			</div>
 			<p>OP: {tweet.user_name}</p>
 		</div>
 	  </div>
@@ -115,6 +118,20 @@
 		display: flex;
 		justify-content: space-between;
 		flex-direction: row;
+	}
+
+	.likeContainer {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+	
+	}
+
+	.likeButton {
+		cursor: pointer;
+		border-radius: 10px;
+		padding: 5px;
+		background-color: #f0f0f0;
 	}
 
 
