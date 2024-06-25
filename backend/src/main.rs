@@ -139,12 +139,12 @@ async fn get_comments_for_tweet(tweet_id: web::Path<i32>) -> impl Responder {
 #[put("/backend/tweets/{tweet_id}/like")]
 async fn like_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
 
-    let connection = establish_connection();
+    let mut connection = establish_connection();
 
     // Zuerst den aktuellen Tweet aus der Datenbank laden
-    let mut tweet = tweets
+    let mut tweet = tweets_dsl::tweets
         .filter(id.eq(tweet_id))
-        .first::<Tweet>(&connection)
+        .first::<Tweet>(&mut connection)
         .expect("Error loading tweet");
 
     // Increment the like count
@@ -166,12 +166,12 @@ async fn like_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
 #[put("/backend/tweets/{tweet_id}/dislike")]
 async fn dislike_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
 
-    let connection = establish_connection();
+    let mut connection = establish_connection();
 
     // Zuerst den aktuellen Tweet aus der Datenbank laden
-    let mut tweet = tweets
+    let mut tweet = tweets_dsl::tweets
         .filter(id.eq(tweet_id))
-        .first::<Tweet>(&connection)
+        .first::<Tweet>(&mut connection)
         .expect("Error loading tweet");
 
     // Increment the dislike count
