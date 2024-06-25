@@ -23,20 +23,17 @@ async fn hello() -> impl Responder {
 async fn create_user(new_user: web::Json<User>) -> impl Responder {
     let mut conn = establish_connection();
 
-    // Fügen Sie den neuen Benutzer ein
     diesel::insert_into(users)
         .values(new_user.into_inner())
         .execute(&mut conn)
         .expect("Error inserting new user");
 
-    // Manuell die ID des eingefügten Benutzers abrufen
     let inserted_user = users.order(id.desc()).first::<User>(&mut conn)
         .expect("Failed to fetch inserted user");
 
     HttpResponse::Created().json(inserted_user)
 }
 
-// Handler zum Abrufen aller Benutzer
 #[get("/backend/users")]
 async fn get_users() -> impl Responder {
     let mut conn = establish_connection();
@@ -47,7 +44,6 @@ async fn get_users() -> impl Responder {
     HttpResponse::Ok().json(users_list)
 }
 
-// Handler zum Abrufen eines einzelnen Benutzers anhand seiner ID
 #[get("/backend/users/{id}")]
 async fn get_user_by_id(user_id: web::Path<i32>) -> impl Responder {
     let user_id = user_id.into_inner();
@@ -62,7 +58,6 @@ async fn get_user_by_id(user_id: web::Path<i32>) -> impl Responder {
     HttpResponse::Ok().json(user)
 }
 
-// Handler zum Aktualisieren eines Benutzers
 #[put("/backend/users/{id}")]
 async fn update_user(_user_id: web::Path<i32>, updated_user: web::Json<User>) -> impl Responder {
     let mut conn = establish_connection();
@@ -75,7 +70,6 @@ async fn update_user(_user_id: web::Path<i32>, updated_user: web::Json<User>) ->
     HttpResponse::Ok().body("User updated successfully")
 }
 
-// Handler zum Erstellen eines neuen Tweets
 #[post("/backend/tweets")]
 async fn create_tweet(new_tweet: web::Json<NewTweet>) -> impl Responder {
     let mut conn = establish_connection();
@@ -92,7 +86,6 @@ async fn get_tweets() -> impl Responder {
 
     let mut connection = establish_connection();
 
-    // Query für den Join von `tweets` und `users`
     let tweets_with_users = tweets_dsl::tweets
         .inner_join(users_dsl::users)
         .select((
@@ -102,7 +95,7 @@ async fn get_tweets() -> impl Responder {
             tweets_dsl::likes,
             tweets_dsl::dislikes,
             tweets_dsl::text,
-            users_dsl::name,  // Feld für den Benutzernamen aus der `users` Tabelle
+            users_dsl::name,  
         ))
         .load::<TweetWithUser>(&mut connection)
         .expect("Error loading tweets");
@@ -110,7 +103,6 @@ async fn get_tweets() -> impl Responder {
     HttpResponse::Ok().json(tweets_with_users)
 }
 
-// Handler zum Erstellen eines neuen Kommentars
 #[post("/backend/comments")]
 async fn create_comment(new_comment: web::Json<NewComment>) -> impl Responder {
     let mut conn = establish_connection();
@@ -148,17 +140,14 @@ async fn get_comments_for_tweet(tweet_id: web::Path<i32>) -> impl Responder {
 #[put("/backend/tweets/{tweet_id}/like")]
 async fn like_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     let mut connection = establish_connection();
-    let tweet_id = tweet_id.into_inner(); // Extrahiere den i32-Wert aus web::Path<i32>
+    let tweet_id = tweet_id.into_inner(); 
 
-    // Holen Sie sich den aktuellen Like-Zähler des Tweets
     let tweet = tweets_dsl::tweets.filter(tweets::id.eq(tweet_id))
         .first::<Tweet>(&mut connection)
         .expect("Error loading tweet");
 
-    // Berechnen Sie den neuen Like-Zähler
     let new_likes = tweet.likes.unwrap_or(0) + 1;
 
-    // Aktualisieren Sie den Like-Zähler in der Datenbank
     diesel::update(tweets::table.filter(tweets::id.eq(tweet_id)))
         .set(tweets::likes.eq(new_likes))
         .execute(&mut connection)
@@ -170,17 +159,15 @@ async fn like_tweet(tweet_id: web::Path<i32>) -> impl Responder {
 #[put("/backend/tweets/{tweet_id}/dislike")]
 async fn dislike_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     let mut connection = establish_connection();
-    let tweet_id = tweet_id.into_inner(); // Extrahiere den i32-Wert aus web::Path<i32>
+    let tweet_id = tweet_id.into_inner(); 
 
-    // Holen Sie sich den aktuellen Dislike-Zähler des Tweets
     let tweet = tweets_dsl::tweets.filter(tweets::id.eq(tweet_id))
         .first::<Tweet>(&mut connection)
         .expect("Error loading tweet");
 
-    // Berechnen Sie den neuen Dislike-Zähler
     let new_dislikes = tweet.dislikes.unwrap_or(0) + 1;
 
-    // Aktualisieren Sie den Dislike-Zähler in der Datenbank
+    
     diesel::update(tweets::table.filter(tweets::id.eq(tweet_id)))
         .set(tweets::dislikes.eq(new_dislikes))
         .execute(&mut connection)
@@ -190,7 +177,7 @@ async fn dislike_tweet(tweet_id: web::Path<i32>) -> impl Responder {
 }
 
 
-// Datenbankverbindung initialisieren
+
 fn establish_connection() -> SqliteConnection {
     let database_url = env::var("DATABASE_URL")
         .expect("DATABASE_URL must be set");
