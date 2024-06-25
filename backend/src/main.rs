@@ -129,6 +129,7 @@ async fn get_comments_for_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     let mut conn = establish_connection();
     
     let comments_list = comments_dsl::comments
+        .inner_join(users_dsl::users.on(comments_dsl::userId.eq(users_dsl::id)))
         .filter(comments_dsl::tweetId.eq(tweet_id))
         .load::<Comment>(&mut conn)
         .expect("Error loading comments");
