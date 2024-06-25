@@ -112,7 +112,12 @@
 	}
   
 	// Funktion zum Erstellen eines neuen Kommentars zu einem Tweet
-	async function createComment(tweetId, newComment) {
+	async function createComment(userId, tweetId, newCommentText) {
+		let newComment = {
+			userId: userId,
+			tweetId: tweetId,
+			text: newCommentText
+		};
 	  const response = await fetch('https://58260-3000.2.codesphere.com/backend/comments', {
 		method: 'POST',
 		headers: {
@@ -192,7 +197,7 @@
 			{:else}
 			  <p>No comments available.</p>
 			{/if}
-			<form on:submit|preventDefault={() => createComment(tweet.id, { text: newCommentText })}>
+			<form on:submit|preventDefault={() => createComment( loggedInUserId, tweet.id, newCommentText )}>
 			  <label>
 				Comment:
 				<textarea bind:value={newCommentText} required></textarea>
