@@ -60,7 +60,7 @@ pub struct TweetWithUser {
     user_name: String,  // Das Feld für den Benutzernamen hinzufügen
 }
 
-#[derive(Debug, Queryable, Insertable, Serialize, Deserialize, AsChangeset)]
+#[derive(Debug, Queryable, Serialize, Deserialize)]
 pub struct CommentWithUser {
     pub id: Option<i32>,
     pub userId: Option<i32>,
