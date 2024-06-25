@@ -46,3 +46,15 @@ pub struct NewComment {
     pub tweetId: i32,
 }
 
+// Struktur für die Datenbankabfrage von `tweets` zusammen mit `users`
+#[derive(Debug, Queryable, Serialize)]
+struct TweetWithUser {
+    id: Option<i32>,
+    userId: Option<i32>,
+    title: String,
+    likes: Option<i32>,
+    dislikes: Option<i32>,
+    text: String,
+    user_name: String,  // Das Feld für den Benutzernamen hinzufügen
+}
+

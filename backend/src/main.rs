@@ -87,14 +87,29 @@ async fn create_tweet(new_tweet: web::Json<NewTweet>) -> impl Responder {
     HttpResponse::Created().body("Tweet created successfully")
 }
 
-// Handler zum Abrufen aller Tweets
 #[get("/backend/tweets")]
 async fn get_tweets() -> impl Responder {
-    let mut conn = establish_connection();
-    let tweets_list = tweets_dsl::tweets
-        .load::<Tweet>(&mut conn)
+    use crate::schema::tweets::dsl::*;
+    use crate::schema::users::dsl::users;
+
+    let connection = establish_connection();
+
+    // Query für den Join von `tweets` und `users`
+    let tweets_with_users = tweets
+        .inner_join(users)
+        .select((
+            tweets::id,
+            tweets::userId,
+            tweets::title,
+            tweets::likes,
+            tweets::dislikes,
+            tweets::text,
+            users::name,  // Feld für den Benutzernamen aus der `users` Tabelle
+        ))
+        .load::<TweetWithUser>(&connection)
         .expect("Error loading tweets");
-    HttpResponse::Ok().json(tweets_list)
+
+    HttpResponse::Ok().json(tweets_with_users)
 }
 
 // Handler zum Erstellen eines neuen Kommentars
