@@ -35,7 +35,7 @@ pub struct Comment {
     pub id: Option<i32>,
     pub userId: Option<i32>,
     pub tweetId: i32,
-    pub text: String,
+    pub comment: String,
     pub likes: Option<i32>,
     pub dislikes: Option<i32>,
 }
