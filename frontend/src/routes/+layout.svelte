@@ -3,7 +3,7 @@
 	import './styles.css';
 	import { onMount } from 'svelte';
 	let userLoggedIn;
-	export let userName = '';
+	let userName;
 
 	onMount(async () => {
 		// Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
