@@ -1,10 +1,20 @@
 <script>
 	import { onMount } from 'svelte';
 
-	onMount(() => {
-		console.log('The about page has been mounted');
-	});
+	let users = [];
 
+	onMount(async () => {
+		try {
+			const response = await fetch('/backend/users');
+			if (response.ok) {
+				users = await response.json();
+			} else {
+				console.error('Error fetching users:', response.statusText);
+			}
+		} catch (error) {
+			console.error('Error fetching users:', error);
+		}
+	});
 </script>
 
 <svelte:head>
@@ -12,24 +22,11 @@
 	<meta name="description" content="About this app" />
 </svelte:head>
 
-<div class="text-column">
-	<h1>About this app</h1>
-
-	<p>
-		This is a <a href="https://kit.svelte.dev">SvelteKit</a> app. You can make your own by typing the
-		following into your command line and following the prompts:
-	</p>
-
-	<pre>npm create svelte@latest</pre>
-
-	<p>
-		The page you're looking at is purely static HTML, with no client-side interactivity needed.
-		Because of that, we don't need to load any JavaScript. Try viewing the page's source, or opening
-		the devtools network panel and reloading.
-	</p>
-
-	<p>
-		The  page illustrates SvelteKit's data loading and form handling. Try
-		using it with JavaScript disabled!
-	</p>
-</div>
+<main>
+	<h1>Users</h1>
+	<ul>
+		{#each users as user}
+			<li>{user.name}</li> <!-- Anpassung je nach Attributen deiner User -->
+		{/each}
+	</ul>
+</main>
