@@ -11,7 +11,6 @@
 		const loggedInUser = await localStorage.getItem('loggedInUser');
 		console.log('loggedInUser:', loggedInUser);
 		if (loggedInUser) {
-		userLoggedIn = true;
 		userName = loggedInUser;
 		} else {
 		userLoggedIn = false;
