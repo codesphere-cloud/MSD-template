@@ -7,13 +7,13 @@
 	
 	let tweets = [];
 	let newTweet = {
-		  userId: loggedInUserId,
-		  title: '',
-		  likes: 0,
-		  dislikes: 0,
-		  text: ''
-		};
-	
+	  userId: loggedInUserId,
+	  title: '',
+	  likes: 0,
+	  dislikes: 0,
+	  text: ''
+	};
+  
 	const dispatch = createEventDispatcher();
   
 	// Funktion zum Abrufen der Tweets von der API
@@ -21,6 +21,7 @@
 	  const response = await fetch('https://58260-3000.2.codesphere.com/backend/tweets');
 	  if (response.ok) {
 		tweets = await response.json();
+		tweets.reverse();
 	  } else {
 		console.error('Error fetching tweets:', response.statusText);
 	  }
@@ -55,34 +56,58 @@
 		console.error('Error creating tweet:', response.statusText);
 	  }
 	}
-
+  
 	// Funktion zum Liken eines Tweets
-    async function likeTweet(tweetId) {
-        const response = await fetch(`https://58260-3000.2.codesphere.com/backend/tweets/${tweetId}/like`, {
-            method: 'PUT',
-        });
-
-        if (response.ok) {
-            // Wenn erfolgreich, aktualisiere die Tweets
-            await fetchTweets();
-        } else {
-            console.error('Error liking tweet:', response.statusText);
-        }
-    }
-
-    // Funktion zum Disliken eines Tweets
-    async function dislikeTweet(tweetId) {
-        const response = await fetch(`https://58260-3000.2.codesphere.com/backend/tweets/${tweetId}/dislike`, {
-            method: 'PUT',
-        });
-
-        if (response.ok) {
-            // Wenn erfolgreich, aktualisiere die Tweets
-            await fetchTweets();
-        } else {
-            console.error('Error disliking tweet:', response.statusText);
-        }
-    }
+	async function likeTweet(tweetId) {
+	  const response = await fetch(`https://58260-3000.2.codesphere.com/backend/tweets/${tweetId}/like`, {
+		method: 'PUT',
+	  });
+  
+	  if (response.ok) {
+		// Wenn erfolgreich, aktualisiere die Tweets
+		await fetchTweets();
+	  } else {
+		console.error('Error liking tweet:', response.statusText);
+	  }
+	}
+  
+	// Funktion zum Disliken eines Tweets
+	async function dislikeTweet(tweetId) {
+	  const response = await fetch(`https://58260-3000.2.codesphere.com/backend/tweets/${tweetId}/dislike`, {
+		method: 'PUT',
+	  });
+  
+	  if (response.ok) {
+		// Wenn erfolgreich, aktualisiere die Tweets
+		await fetchTweets();
+	  } else {
+		console.error('Error disliking tweet:', response.statusText);
+	  }
+	}
+  
+	// Funktion zum Öffnen der Kommentare eines Tweets
+	function openComments(tweetId) {
+	  const tweet = tweets.find(t => t.id === tweetId);
+	  tweet.showComments = !tweet.showComments;
+	}
+  
+	// Funktion zum Erstellen eines neuen Kommentars zu einem Tweet
+	async function createComment(tweetId, newComment) {
+	  const response = await fetch('https://58260-3000.2.codesphere.com/backend/comments', {
+		method: 'POST',
+		headers: {
+		  'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(newComment)
+	  });
+  
+	  if (response.ok) {
+		// Kommentar erfolgreich erstellt, aktualisiere die Tweets
+		await fetchTweets();
+	  } else {
+		console.error('Error creating comment:', response.statusText);
+	  }
+	}
   
 	// Ruft die Funktion beim Laden der Komponente auf
 	onMount(fetchTweets);
@@ -118,24 +143,45 @@
 	<p>No tweets available.</p>
   {:else}
 	<ul>
-		{#each tweets as tweet}
-			<div class="tweetBox">
-				<strong>Title: {tweet.title}</strong>
-				<p>{tweet.text}</p>
-				<div class="info-section-tweet">
-					<div class="likeContainer">
-						<div on:click={() => likeTweet(tweet.id)} role="presentation">
-							<p class="likeButton">Likes: {tweet.likes ?? 0}</p>
-						</div>
-						
-						<div on:click={() => dislikeTweet(tweet.id)} role="presentation">
-							<p class="likeButton">Dislikes: {tweet.dislikes ?? 0}</p>
-						</div>
-					</div>
-					<p>OP: {tweet.user_name}</p>
-				</div>
+	  {#each tweets as tweet}
+		<div class="tweetBox">
+		  <strong>{tweet.title}</strong>
+		  <p>{tweet.text}</p>
+		  <div class="info-section-tweet">
+			<div class="likeContainer">
+			  <div on:click={() => likeTweet(tweet.id)} role="presentation">
+				<div class="likeButton">Likes: {tweet.likes ?? 0}</div>
+			  </div>
+			  <div on:click={() => dislikeTweet(tweet.id)} role="presentation">
+				<div class="likeButton">Dislikes: {tweet.dislikes ?? 0}</div>
+			  </div>
+			  <div on:click={() => openComments(tweet.id)} role="presentation">
+				<div class="likeButton">Comments: {tweet.comments ? tweet.comments.length : 0}</div>
+			  </div>
 			</div>
-		{/each}
+			<p>OP: {tweet.user_name}</p>
+		  </div>
+		  <div class="comment-section" style="display: {tweet.showComments ? 'block' : 'none'};">
+			{#if tweet.comments && tweet.comments.length > 0}
+			  {#each tweet.comments as comment}
+				<div>
+				  <p>{comment.text}</p>
+				  <p>By: {comment.user_name}</p>
+				</div>
+			  {/each}
+			{:else}
+			  <p>No comments available.</p>
+			{/if}
+			<form on:submit|preventDefault={() => createComment(tweet.id, { text: newCommentText })}>
+			  <label>
+				Comment:
+				<textarea bind:value={newCommentText} required></textarea>
+			  </label>
+			  <button type="submit">Add Comment</button>
+			</form>
+		  </div>
+		</div>
+	  {/each}
 	</ul>
   {/if}
   
@@ -146,27 +192,28 @@
 	  padding: 10px;
 	  margin: 10px 0;
 	}
-
-	.info-section-tweet{
-		display: flex;
-		justify-content: space-between;
-		flex-direction: row;
+  
+	.info-section-tweet {
+	  display: flex;
+	  justify-content: space-between;
+	  flex-direction: row;
 	}
-
+  
 	.likeContainer {
-		display: flex;
-		flex-direction: row;
-		gap: 10px;
-	
+	  display: flex;
+	  flex-direction: row;
+	  gap: 10px;
 	}
-
+  
 	.likeButton {
-		cursor: pointer;
-		border-radius: 10px;
-		padding: 5px;
-		background-color: #f0f0f0;
+	  cursor: pointer;
+	  border-radius: 10px;
+	  padding: 5px;
+	  background-color: #f0f0f0;
 	}
-
-
+  
+	.comment-section {
+	  display: none;
+	}
   </style>
   
