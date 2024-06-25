@@ -124,10 +124,13 @@
 				<p>{tweet.text}</p>
 				<div class="info-section-tweet">
 					<div class="likeContainer">
-						<button on:click={() => likeTweet(tweet.id)}>Like</button>
-						<p class="likeButton">Likes: {tweet.likes ?? 0}</p>
-						<button on:click={() => dislikeTweet(tweet.id)}>Dislike</button>
-						<p class="likeButton">Dislikes: {tweet.dislikes ?? 0}</p>
+						<div on:click={() => likeTweet(tweet.id)} role="presentation">
+							<p class="likeButton">Likes: {tweet.likes ?? 0}</p>
+						</div>
+						
+						<div on:click={() => dislikeTweet(tweet.id)} role="presentation">
+							<p class="likeButton">Dislikes: {tweet.likes ?? 0}</p>
+						</div>
 					</div>
 					<p>OP: {tweet.user_name}</p>
 				</div>
