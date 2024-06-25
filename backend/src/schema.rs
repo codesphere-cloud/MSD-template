@@ -4,7 +4,8 @@ diesel::table! {
     comments (id) {
         id -> Nullable<Integer>,
         userId -> Nullable<Integer>,
-        tweetId -> Integer,
+        tweetId -> Nullable<Integer>,
+        comment -> Text,
         likes -> Nullable<Integer>,
         dislikes -> Nullable<Integer>,
     }
