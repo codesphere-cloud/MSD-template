@@ -90,7 +90,7 @@ async fn create_tweet(new_tweet: web::Json<NewTweet>) -> impl Responder {
 #[get("/backend/tweets")]
 async fn get_tweets() -> impl Responder {
 
-    let connection = establish_connection();
+    let mut connection = establish_connection();
 
     // Query für den Join von `tweets` und `users`
     let tweets_with_users = tweets_dsl::tweets
