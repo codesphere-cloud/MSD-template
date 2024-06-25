@@ -22,7 +22,7 @@
 			<li aria-current={$page.url.pathname === '/users' ? 'page' : undefined}>
 				<a href="/users">registered Users</a>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/sPostings') ? 'page' : undefined}>
+			<li aria-current={$page.url.pathname.startsWith('/Postings') ? 'page' : undefined}>
 				<a href="/Postings">Postings</a>
 			</li>
 		</ul>
