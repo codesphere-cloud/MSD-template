@@ -67,7 +67,7 @@
 		const comments = await response.json();
 		// Füge die geladenen Kommentare dem entsprechenden Tweet hinzu
 		tweets[i].comments = comments;
-		tweest[i].showComments = false;
+		tweets[i].showComments = false;
 		} else {
 		console.error('Error fetching comments:', response.statusText);
 		}
