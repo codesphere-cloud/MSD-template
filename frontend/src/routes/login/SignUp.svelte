@@ -14,36 +14,36 @@
         };
 
         try {
-            const response = await fetch('https://58260-3000.2.codesphere.com/backend/users', {  // change that to the Codesphere URL
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newUser)
-            });
+        const response = await fetch('https://58260-3000.2.codesphere.com/backend/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+        });
 
-            if (!response.ok) {
-                throw new Error('Failed to create user');
-            }
-
-            const createdUser = await response.json();
-            console.log(createdUser); // Output response from server
-
-            // Save logged-in user details to local storage
-            localStorage.setItem('loggedInUser', JSON.stringify({
-                id: createdUser.id.toString(),
-                name: createdUser.name
-            }));
-
-            // Handle success (e.g., show a success message, redirect user)
-            alert('User created successfully');
-            form.reset(); // Clear form inputs
-
-            window.location.href = '/'; // Redirect to main route
-        } catch (error) {
-            console.error('Error creating user:', error);
-            alert('Failed to create user');
+        if (!response.ok) {
+            throw new Error('Failed to create user');
         }
+
+        const createdUser = await response.json();
+        console.log(createdUser); // Output response from server
+
+        // Save logged-in user details to local storage
+        localStorage.setItem('loggedInUser', JSON.stringify({
+            id: createdUser.id.toString(),
+            name: createdUser.name
+        }));
+
+        // Handle success (e.g., show a success message, redirect user)
+        alert('User created successfully');
+        form.reset(); // Clear form inputs
+
+        window.location.href = '/'; // Redirect to main route
+    } catch (error) {
+        console.error('Error creating user:', error);
+        alert('Failed to create user');
+    }
     }
 </script>
 

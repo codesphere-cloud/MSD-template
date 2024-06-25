@@ -25,7 +25,7 @@ async fn create_user(new_user: web::Json<User>) -> impl Responder {
     let mut conn = establish_connection();
     let inserted_user = diesel::insert_into(users_dsl::users)
         .values(new_user.into_inner())
-        .execute(&mut conn)
+        .get_result::<User>(&mut conn)
         .expect("Error inserting new user");
 
     HttpResponse::Ok().json(inserted_user)
