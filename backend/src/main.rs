@@ -93,16 +93,16 @@ async fn get_tweets() -> impl Responder {
     let connection = establish_connection();
 
     // Query für den Join von `tweets` und `users`
-    let tweets_with_users = tweets
-        .inner_join(users)
+    let tweets_with_users = tweets_dsl::tweets
+        .inner_join(users_dsl::users)
         .select((
-            tweets::id,
-            tweets::userId,
-            tweets::title,
-            tweets::likes,
-            tweets::dislikes,
-            tweets::text,
-            users::name,  // Feld für den Benutzernamen aus der `users` Tabelle
+            tweets_dsl::id,
+            tweets_dsl::userId,
+            tweets_dsl::title,
+            tweets_dsl::likes,
+            tweets_dsl::dislikes,
+            tweets_dsl::text,
+            users_dsl::name,  // Feld für den Benutzernamen aus der `users` Tabelle
         ))
         .load::<TweetWithUser>(&connection)
         .expect("Error loading tweets");
