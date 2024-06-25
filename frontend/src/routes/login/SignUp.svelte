@@ -32,6 +32,11 @@
             // Handle success (e.g., show a success message, redirect user)
             alert('User created successfully');
             form.reset(); // Clear form inputs
+
+            // Save logged-in user to local storage
+            localStorage.setItem('loggedInUser', userName); // Assuming userName is the identifier
+
+            window.location.href = '/'; // Redirect to main route
         } catch (error) {
             console.error('Error creating user:', error);
             alert('Failed to create user');
