@@ -1,13 +1,13 @@
 <script>
 	import { onMount } from 'svelte';
 	import { createEventDispatcher } from 'svelte';
-
+  
 	let loggedInUserName;
 	let loggedInUserId;
-  
+	
 	let tweets = [];
 	let newTweet = {
-	  userId: loggedInUserId,
+	  userId: null,
 	  title: '',
 	  likes: null,
 	  dislikes: null,
@@ -28,6 +28,8 @@
   
 	// Funktion zum Erstellen eines neuen Tweets
 	async function createTweet() {
+	  newTweet.userId = loggedInUserId;  // Setzt die Benutzer-ID vor dem Senden des Tweets
+  
 	  const response = await fetch('https://58260-3000.2.codesphere.com/backend/tweets', {
 		method: 'POST',
 		headers: {
@@ -55,10 +57,11 @@
   
 	// Ruft die Funktion beim Laden der Komponente auf
 	onMount(fetchTweets);
-	onMount(async () => {
-		// Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
-		loggedInUserName = await localStorage.getItem('loggedInUserName');
-		loggedInUserId = await localStorage.getItem('loggedInUserId');
+	onMount(() => {
+	  // Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
+	  loggedInUserName = localStorage.getItem('loggedInUserName');
+	  loggedInUserId = localStorage.getItem('loggedInUserId');
+	  newTweet.userId = loggedInUserId;  // Setzt die Benutzer-ID beim Laden der Komponente
 	});
   </script>
   
