@@ -95,7 +95,7 @@
 		  <h2>{tweet.title}</h2>
 		  <p>{tweet.text}</p>
 		  <p>Likes: {tweet.likes ?? 0} | Dislikes: {tweet.dislikes ?? 0}</p>
-		  <p>{tweet.name}</p>
+		  <p>{tweet.user_name}</p>
 		</li>
 	  {/each}
 	</ul>
