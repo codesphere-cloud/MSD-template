@@ -138,12 +138,12 @@ async fn get_comments_for_tweet(tweet_id: web::Path<i32>) -> impl Responder {
 
 #[put("/backend/tweets/{tweet_id}/like")]
 async fn like_tweet(tweet_id: web::Path<i32>) -> impl Responder {
-    let connection = establish_connection();
+    let mut connection = establish_connection();
     let tweet_id = tweet_id.into_inner(); // Extrahiere den i32-Wert aus web::Path<i32>
 
     // Holen Sie sich den aktuellen Like-Zähler des Tweets
     let tweet = tweets_dsl::tweets.filter(tweets::id.eq(tweet_id))
-        .first::<Tweet>(&connection)
+        .first::<Tweet>(&mut connection)
         .expect("Error loading tweet");
 
     // Berechnen Sie den neuen Like-Zähler
@@ -152,7 +152,7 @@ async fn like_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     // Aktualisieren Sie den Like-Zähler in der Datenbank
     diesel::update(tweets::table.filter(tweets::id.eq(tweet_id)))
         .set(tweets::likes.eq(new_likes))
-        .execute(&connection)
+        .execute(&mut connection)
         .expect("Error updating tweet likes");
 
     HttpResponse::Ok().finish()
@@ -160,12 +160,12 @@ async fn like_tweet(tweet_id: web::Path<i32>) -> impl Responder {
 
 #[put("/backend/tweets/{tweet_id}/dislike")]
 async fn dislike_tweet(tweet_id: web::Path<i32>) -> impl Responder {
-    let connection = establish_connection();
+    let mut connection = establish_connection();
     let tweet_id = tweet_id.into_inner(); // Extrahiere den i32-Wert aus web::Path<i32>
 
     // Holen Sie sich den aktuellen Dislike-Zähler des Tweets
     let tweet = tweets_dsl::tweets.filter(tweets::id.eq(tweet_id))
-        .first::<Tweet>(&connection)
+        .first::<Tweet>(&mut connection)
         .expect("Error loading tweet");
 
     // Berechnen Sie den neuen Dislike-Zähler
@@ -174,7 +174,7 @@ async fn dislike_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     // Aktualisieren Sie den Dislike-Zähler in der Datenbank
     diesel::update(tweets::table.filter(tweets::id.eq(tweet_id)))
         .set(tweets::dislikes.eq(new_dislikes))
-        .execute(&connection)
+        .execute(&mut connection)
         .expect("Error updating tweet dislikes");
 
     HttpResponse::Ok().finish()
