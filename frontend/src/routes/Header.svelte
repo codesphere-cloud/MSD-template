@@ -20,10 +20,10 @@
 				<a href="/">Home</a>
 			</li>
 			<li aria-current={$page.url.pathname === '/users' ? 'page' : undefined}>
-				<a href="/about">registered Users</a>
+				<a href="/users">registered Users</a>
 			</li>
 			<li aria-current={$page.url.pathname.startsWith('/sPostings') ? 'page' : undefined}>
-				<a href="/sverdle">Postings</a>
+				<a href="/Postings">Postings</a>
 			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
