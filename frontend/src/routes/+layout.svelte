@@ -29,7 +29,7 @@
 		{/if}
 
 		<main>
-			<slot {userName}/>
+			<slot userName={userName}/>
 		</main>
 
 		<footer>
