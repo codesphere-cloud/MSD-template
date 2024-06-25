@@ -89,8 +89,6 @@ async fn create_tweet(new_tweet: web::Json<NewTweet>) -> impl Responder {
 
 #[get("/backend/tweets")]
 async fn get_tweets() -> impl Responder {
-    use crate::schema::tweets::dsl::*;
-    use crate::schema::users::dsl::users;
 
     let connection = establish_connection();
 
