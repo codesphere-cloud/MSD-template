@@ -18,7 +18,7 @@
   
 	// Funktion zum Abrufen der Tweets von der API
 	async function fetchTweets() {
-	  const response = await fetch('/backend/tweets');
+	  const response = await fetch('https://58260-3000.2.codesphere.com/backend/tweets');
 	  if (response.ok) {
 		tweets = await response.json();
 	  } else {
@@ -28,7 +28,7 @@
   
 	// Funktion zum Erstellen eines neuen Tweets
 	async function createTweet() {
-	  const response = await fetch('/backend/tweets', {
+	  const response = await fetch('https://58260-3000.2.codesphere.com/backend/tweets', {
 		method: 'POST',
 		headers: {
 		  'Content-Type': 'application/json'
