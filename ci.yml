@@ -1,0 +1,28 @@
+schemaVersion: v0.2
+prepare:
+  steps:
+    - name: install Rust
+      command: nix-env -iA nixpkgs.rustup
+    - name: install frontend dependencies
+      command: cd frontend/ && npm i
+    - name: install diesel ORM
+      command: nix-env -iA nixpkgs.diesel-cli
+test:
+  steps: []
+run:
+  frontend:
+    steps:
+      - command: cd frontend/ && npm run build
+      - command: cd frontend/ && npm run dev
+    plan: 8
+    replicas: 1
+    network:
+      path: /
+  backend:
+    steps:
+      - command: rustup default stable && cd backend/ && cargo build --release
+      - command: ./backend/target/release/backend
+    plan: 8
+    replicas: 1
+    network:
+      path: /backend
