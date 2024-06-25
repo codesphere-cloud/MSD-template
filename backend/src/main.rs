@@ -104,7 +104,7 @@ async fn get_tweets() -> impl Responder {
             tweets_dsl::text,
             users_dsl::name,  // Feld für den Benutzernamen aus der `users` Tabelle
         ))
-        .load::<TweetWithUser>(&connection)
+        .load::<TweetWithUser>(&mut connection)
         .expect("Error loading tweets");
 
     HttpResponse::Ok().json(tweets_with_users)
