@@ -3,6 +3,8 @@ prepare:
   steps:
     - name: install Rust
       command: nix-env -iA nixpkgs.rustup
+    - name: Change Node.js version
+      command: sudo n latest stable
     - name: install frontend dependencies
       command: cd frontend/ && npm i
     - name: install diesel ORM
@@ -12,8 +14,10 @@ test:
 run:
   frontend:
     steps:
-      - command: cd frontend/ && npm run build
-      - command: cd frontend/ && npm run start
+      - name: Build the project
+        command: cd frontend/ && npm run build
+      - name: Deploy SvelteKit project
+        command: cd frontend/ && HOST=0.0.0.0 PORT=3000 node build
     plan: 8
     replicas: 1
     network:
