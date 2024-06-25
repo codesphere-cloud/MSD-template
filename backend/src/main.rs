@@ -23,12 +23,12 @@ async fn hello() -> impl Responder {
 #[post("/backend/users")]
 async fn create_user(new_user: web::Json<User>) -> impl Responder {
     let mut conn = establish_connection();
-    diesel::insert_into(users_dsl::users)
+    let inserted_user = diesel::insert_into(users_dsl::users)
         .values(new_user.into_inner())
         .execute(&mut conn)
         .expect("Error inserting new user");
 
-    HttpResponse::Created().body("User created successfully")
+    HttpResponse::Created().json(inserted_user)
 }
 
 // Handler zum Abrufen aller Benutzer

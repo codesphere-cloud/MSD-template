@@ -1,3 +1,12 @@
+<script>
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		console.log('The about page has been mounted');
+	});
+
+</script>
+
 <svelte:head>
 	<title>About</title>
 	<meta name="description" content="About this app" />

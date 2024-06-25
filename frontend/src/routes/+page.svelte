@@ -7,10 +7,13 @@
 
 	onMount(async () => {
 		// Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
-		const loggedInUser = await localStorage.getItem('loggedInUser');
-		console.log('loggedInUser:', loggedInUser);
+		const loggedInUser = await JSON.parse(localStorage.getItem('loggedInUser'));
+		console.log('loggedInUser:', JSON.stringify(loggedInUser));
 		if (loggedInUser) {
-		userName = loggedInUser;
+		userName = loggedInUser.name;
+		id = loggedInUser.id;
+		console.log('id: ' + id);
+		console.log('userName: ' + userName);
 		} else {
 		userLoggedIn = false;
 		// Umleitung zur Login-Seite, wenn kein Benutzer angemeldet ist
@@ -42,7 +45,7 @@
 
 	<h2>
 		This is the frontend Component interacting with the backend component. <br>
-		Feel free to create a post! :)
+		Feel free to create a post! 
 
 		Also, if you want to learn Svelte or Rust you can adopt this template as a project. <br>
 		Just fork the repository and start coding!

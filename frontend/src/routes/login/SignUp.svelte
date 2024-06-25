@@ -26,15 +26,18 @@
                 throw new Error('Failed to create user');
             }
 
-            const result = await response.text();
-            console.log(result); // Output response from server
+            const createdUser = await response.json();
+            console.log(createdUser); // Output response from server
+
+            // Save logged-in user details to local storage
+            localStorage.setItem('loggedInUser', JSON.stringify({
+                id: createdUser.id.toString(),
+                name: createdUser.name
+            }));
 
             // Handle success (e.g., show a success message, redirect user)
             alert('User created successfully');
             form.reset(); // Clear form inputs
-
-            // Save logged-in user to local storage
-            localStorage.setItem('loggedInUser', userName); // Assuming userName is the identifier
 
             window.location.href = '/'; // Redirect to main route
         } catch (error) {

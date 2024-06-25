@@ -1,5 +1,4 @@
 <script>
-    import LogIn from './LogIn.svelte';
     import SignUp from './SignUp.svelte';
 
 
