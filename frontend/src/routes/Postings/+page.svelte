@@ -24,6 +24,7 @@
 	  } else {
 		console.error('Error fetching tweets:', response.statusText);
 	  }
+	  console.log(tweets);
 	}
   
 	// Funktion zum Erstellen eines neuen Tweets
