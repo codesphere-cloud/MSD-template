@@ -91,17 +91,24 @@
   {:else}
 	<ul>
 	  {#each tweets as tweet}
-		<li>
-		  <h2>{tweet.title}</h2>
-		  <p>{tweet.text}</p>
-		  <p>Likes: {tweet.likes ?? 0} | Dislikes: {tweet.dislikes ?? 0}</p>
-		  <p>{tweet.user_name}</p>
-		</li>
+	  <div class="tweetBox">
+		<h2>{tweet.title}</h2>
+		<p>{tweet.text}</p>
+		<p>Likes: {tweet.likes ?? 0} | Dislikes: {tweet.dislikes ?? 0}</p>
+		<p>OP: {tweet.user_name}</p>
+	  </div>
 	  {/each}
 	</ul>
   {/if}
   
   <style>
 	/* Fügen Sie hier Ihre CSS-Stile hinzu */
+	.tweetBox {
+	  border: 1px solid #ccc;
+	  padding: 10px;
+	  margin: 10px 0;
+	}
+
+
   </style>
   
