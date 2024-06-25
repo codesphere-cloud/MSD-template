@@ -7,7 +7,8 @@
 
 	onMount(() => {
 		// Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
-		const loggedInUser = localStorage.getItem('loggedInUser');
+		const loggedInUser = await localStorage.getItem('loggedInUser');
+		console.log('loggedInUser:', loggedInUser);
 		if (loggedInUser) {
 		userLoggedIn = true;
 		userName = loggedInUser;
