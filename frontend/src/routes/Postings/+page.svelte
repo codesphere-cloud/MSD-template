@@ -92,7 +92,7 @@
 	<ul>
 	  {#each tweets as tweet}
 	  <div class="tweetBox">
-		<strong>Title {tweet.title}</strong>
+		<strong>Title: {tweet.title}</strong>
 		<p>{tweet.text}</p>
 		<div class="info-section-tweet">
 			<p>Likes: {tweet.likes ?? 0} | Dislikes: {tweet.dislikes ?? 0}</p>
@@ -114,7 +114,7 @@
 	.info-section-tweet{
 		display: flex;
 		justify-content: space-between;
-		flex-direction: column;
+		flex-direction: row;
 	}
 
 
