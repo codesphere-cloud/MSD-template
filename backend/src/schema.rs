@@ -5,6 +5,8 @@ diesel::table! {
         id -> Nullable<Integer>,
         userId -> Nullable<Integer>,
         tweetId -> Integer,
+        likes -> Nullable<Integer>,
+        dislikes -> Nullable<Integer>,
     }
 }
 
@@ -13,6 +15,8 @@ diesel::table! {
         id -> Nullable<Integer>,
         userId -> Nullable<Integer>,
         title -> Text,
+        likes -> Nullable<Integer>,
+        dislikes -> Nullable<Integer>,
         text -> Text,
     }
 }

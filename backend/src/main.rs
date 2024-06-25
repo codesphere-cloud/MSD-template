@@ -6,7 +6,7 @@ use actix_web::{get, post, put, web, App, HttpServer, Responder, HttpResponse};
 use crate::models::{User, Tweet, NewTweet};
 use diesel::prelude::*;
 use diesel::sqlite::SqliteConnection;
-use crate::schema::{users::dsl as users_dsl, tweets::dsl as tweets_dsl};
+use crate::schema::{users::dsl as users_dsl, tweets::dsl as tweets_dsl, comments::dsl as comments_dsl};
 use std::env;
 
 mod schema;
@@ -96,6 +96,32 @@ async fn get_tweets() -> impl Responder {
         .expect("Error loading tweets");
 
     HttpResponse::Ok().json(tweets_list)
+}
+
+// Handler zum Erstellen eines neuen Kommentars
+#[post("/backend/comments")]
+async fn create_comment(new_comment: web::Json<NewComment>) -> impl Responder {
+    let mut conn = establish_connection();
+    diesel::insert_into(comments_dsl::comments)
+        .values(new_comment.into_inner())
+        .execute(&mut conn)
+        .expect("Error inserting new comment");
+
+    HttpResponse::Created().body("Comment created successfully")
+}
+
+// Handler zum Abrufen aller Kommentare für einen bestimmten Tweet
+#[get("/backend/tweets/{tweet_id}/comments")]
+async fn get_comments_for_tweet(tweet_id: web::Path<i32>) -> impl Responder {
+    let tweet_id = tweet_id.into_inner();
+    let mut conn = establish_connection();
+    
+    let comments_list = comments_dsl::comments
+        .filter(comments_dsl::tweetId.eq(tweet_id))
+        .load::<Comment>(&mut conn)
+        .expect("Error loading comments");
+
+    HttpResponse::Ok().json(comments_list)
 }
 
 
