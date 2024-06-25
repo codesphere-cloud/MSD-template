@@ -136,10 +136,10 @@ async fn get_comments_for_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     HttpResponse::Ok().json(comments_list)
 }
 
-// Handler zum Liken eines Tweets
 #[put("/backend/tweets/{tweet_id}/like")]
 async fn like_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     let connection = establish_connection();
+    let tweet_id = tweet_id.into_inner(); // Extrahiere den i32-Wert aus web::Path<i32>
 
     // Holen Sie sich den aktuellen Like-Zähler des Tweets
     let tweet = tweets_dsl::tweets.filter(tweets::id.eq(tweet_id))
@@ -158,10 +158,10 @@ async fn like_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     HttpResponse::Ok().finish()
 }
 
-// Handler zum Disliken eines Tweets
 #[put("/backend/tweets/{tweet_id}/dislike")]
 async fn dislike_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     let connection = establish_connection();
+    let tweet_id = tweet_id.into_inner(); // Extrahiere den i32-Wert aus web::Path<i32>
 
     // Holen Sie sich den aktuellen Dislike-Zähler des Tweets
     let tweet = tweets_dsl::tweets.filter(tweets::id.eq(tweet_id))
