@@ -136,58 +136,48 @@ async fn get_comments_for_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     HttpResponse::Ok().json(comments_list)
 }
 
+// Handler zum Liken eines Tweets
 #[put("/backend/tweets/{tweet_id}/like")]
 async fn like_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
-
-    let mut connection = establish_connection();
-
-    // Zuerst den aktuellen Tweet aus der Datenbank laden
-    let mut tweet = tweets_dsl::tweets
-        .filter(tweets_dsl::id.eq(tweet_id))
-        .first::<Tweet>(&mut connection)
+    let connection = establish_connection();
+    
+    // Holen Sie sich den aktuellen Like-Zähler des Tweets
+    let tweet = tweets_dsl::tweets.filter(tweets::id.eq(tweet_id))
+        .first::<Tweet>(&connection)
         .expect("Error loading tweet");
 
-    // Increment the like count
-    if let Some(current_likes) = tweets_dsl::tweets.likes {
-        tweet.likes = Some(current_likes + 1);
-    } else {
-        tweet.likes = Some(1);
-    }
+    // Berechnen Sie den neuen Like-Zähler
+    let new_likes = tweet.likes.unwrap_or(0) + 1;
 
-    // Aktualisieren Sie den Tweet in der Datenbank
-    diesel::update(tweets_dsl::tweets.filter(id.eq(tweet_id)))
-        .set(tweets_dsl::likes.eq(tweets_dsl::tweets.likes))
+    // Aktualisieren Sie den Like-Zähler in der Datenbank
+    diesel::update(tweets::table.filter(tweets::id.eq(tweet_id)))
+        .set(tweets::likes.eq(new_likes))
         .execute(&connection)
         .expect("Error updating tweet likes");
 
-    HttpResponse::Ok().body("Tweet likes incremented")
+    HttpResponse::Ok().finish()
 }
 
+// Handler zum Disliken eines Tweets
 #[put("/backend/tweets/{tweet_id}/dislike")]
 async fn dislike_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
-
-    let mut connection = establish_connection();
-
-    // Zuerst den aktuellen Tweet aus der Datenbank laden
-    let mut tweet = tweets_dsl::tweets
-        .filter(tweets_dsl::id.eq(tweet_id))
-        .first::<Tweet>(&mut connection)
+    let connection = establish_connection();
+    
+    // Holen Sie sich den aktuellen Dislike-Zähler des Tweets
+    let tweet = tweets_dsl::tweets.filter(tweets::id.eq(tweet_id))
+        .first::<Tweet>(&connection)
         .expect("Error loading tweet");
 
-    // Increment the dislike count
-    if let Some(current_dislikes) = tweets_dsl::tweets.dislikes {
-        tweet.dislikes = Some(current_dislikes + 1);
-    } else {
-        tweet.dislikes = Some(1);
-    }
+    // Berechnen Sie den neuen Dislike-Zähler
+    let new_dislikes = tweet.dislikes.unwrap_or(0) + 1;
 
-    // Aktualisieren Sie den Tweet in der Datenbank
-    diesel::update(tweets_dsl::tweets.filter(id.eq(tweet_id)))
-        .set(dislikes.eq(tweets_dsl::tweets.dislikes))
+    // Aktualisieren Sie den Dislike-Zähler in der Datenbank
+    diesel::update(tweets::table.filter(tweets::id.eq(tweet_id)))
+        .set(tweets::dislikes.eq(new_dislikes))
         .execute(&connection)
         .expect("Error updating tweet dislikes");
 
-    HttpResponse::Ok().body("Tweet dislikes incremented")
+    HttpResponse::Ok().finish()
 }
 
 
