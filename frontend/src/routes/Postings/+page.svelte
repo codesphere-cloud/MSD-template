@@ -57,10 +57,10 @@
   
 	// Ruft die Funktion beim Laden der Komponente auf
 	onMount(fetchTweets);
-	onMount(() => {
+	onMount(async () => {
 	  // Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
-	  loggedInUserName = localStorage.getItem('loggedInUserName');
-	  loggedInUserId = localStorage.getItem('loggedInUserId');
+	  loggedInUserName = await localStorage.getItem('loggedInUserName');
+	  loggedInUserId = await parseInt(localStorage.getItem('loggedInUserId'));
 	  newTweet.userId = loggedInUserId;  // Setzt die Benutzer-ID beim Laden der Komponente
 	});
   </script>

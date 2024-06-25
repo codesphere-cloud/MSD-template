@@ -8,7 +8,7 @@
 	onMount(async () => {
 		// Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
 		loggedInUserName = await localStorage.getItem('loggedInUserName');
-		loggedInUserId = await localStorage.getItem('loggedInUserId');
+		loggedInUserId = await parseInt(localStorage.getItem('loggedInUserId'));
 		try {
 			const response = await fetch('/backend/users');
 			if (response.ok) {
