@@ -40,18 +40,6 @@ pub struct Comment {
     pub dislikes: Option<i32>,
 }
 
-// Neue Strukturen für Kommentare hinzufügen
-#[derive(Debug, Queryable, Insertable, Serialize, Deserialize, AsChangeset)]
-pub struct CommentWithUserName {
-    pub id: Option<i32>,
-    pub userId: Option<i32>,
-    pub tweetId: Option<i32>,
-    pub comment: String,
-    pub likes: Option<i32>,
-    pub dislikes: Option<i32>,
-    pub user_name: String,
-}
-
 #[derive(Debug, Insertable, Serialize, Deserialize)]
 #[table_name = "comments"]
 pub struct NewComment {
@@ -70,6 +58,17 @@ pub struct TweetWithUser {
     dislikes: Option<i32>,
     text: String,
     user_name: String,  // Das Feld für den Benutzernamen hinzufügen
+}
+
+#[derive(Debug, Queryable, Insertable, Serialize, Deserialize, AsChangeset)]
+pub struct CommentWithUserName {
+    pub id: Option<i32>,
+    pub userId: Option<i32>,
+    pub tweetId: Option<i32>,
+    pub comment: String,
+    pub likes: Option<i32>,
+    pub dislikes: Option<i32>,
+    pub user_name: String,
 }
 
 
