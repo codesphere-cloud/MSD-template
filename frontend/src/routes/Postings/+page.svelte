@@ -92,10 +92,12 @@
 	<ul>
 	  {#each tweets as tweet}
 	  <div class="tweetBox">
-		<h2>{tweet.title}</h2>
+		<strong>Title {tweet.title}</strong>
 		<p>{tweet.text}</p>
-		<p>Likes: {tweet.likes ?? 0} | Dislikes: {tweet.dislikes ?? 0}</p>
-		<p>OP: {tweet.user_name}</p>
+		<div class="info-section-tweet">
+			<p>Likes: {tweet.likes ?? 0} | Dislikes: {tweet.dislikes ?? 0}</p>
+			<p>OP: {tweet.user_name}</p>
+		</div>
 	  </div>
 	  {/each}
 	</ul>
@@ -107,6 +109,12 @@
 	  border: 1px solid #ccc;
 	  padding: 10px;
 	  margin: 10px 0;
+	}
+
+	.info-section-tweet{
+		display: flex;
+		justify-content: space-between;
+		flex-direction: column;
 	}
 
 
