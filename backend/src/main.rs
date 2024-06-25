@@ -122,19 +122,27 @@ async fn create_comment(new_comment: web::Json<NewComment>) -> impl Responder {
     HttpResponse::Created().body("Comment created successfully")
 }
 
-// Handler zum Abrufen aller Kommentare für einen bestimmten Tweet
 #[get("/backend/tweets/{tweet_id}/comments")]
 async fn get_comments_for_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     let tweet_id = tweet_id.into_inner();
     let mut conn = establish_connection();
-    
-    let comments_list = comments_dsl::comments
+
+    let results = comments_dsl::comments
         .inner_join(users_dsl::users.on(comments_dsl::userId.eq(users_dsl::id)))
         .filter(comments_dsl::tweetId.eq(tweet_id))
+        .select((
+            comments_dsl::id,
+            comments_dsl::userId,
+            comments_dsl::tweetId,
+            comments_dsl::comment,
+            comments_dsl::likes,
+            comments_dsl::dislikes,
+            users_dsl::name,
+        ))
         .load::<CommentWithUserName>(&mut conn)
-        .expect("Error loading comments");
+        .expect("Error loading comments with user names");
 
-    HttpResponse::Ok().json(comments_list)
+    HttpResponse::Ok().json(results)
 }
 
 #[put("/backend/tweets/{tweet_id}/like")]
