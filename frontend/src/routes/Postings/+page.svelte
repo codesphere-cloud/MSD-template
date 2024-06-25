@@ -26,7 +26,6 @@
 	  } else {
 		console.error('Error fetching tweets:', response.statusText);
 	  }
-	  console.log(tweets);
 	}
   
 	// Funktion zum Erstellen eines neuen Tweets
@@ -56,6 +55,22 @@
 	  } else {
 		console.error('Error creating tweet:', response.statusText);
 	  }
+	}
+
+	// Funktion zum Abrufen der Kommentare für jeden Tweet
+	async function fetchComments() {
+	for (let i = 0; i < tweets.length; i++) {
+		const tweet = tweets[i];
+		const response = await fetch(`https://58260-3000.2.codesphere.com/backend/tweets/${tweet.id}/comments`);
+		if (response.ok) {
+		const comments = await response.json();
+		// Füge die geladenen Kommentare dem entsprechenden Tweet hinzu
+		tweets[i].comments = comments;
+		} else {
+		console.error('Error fetching comments:', response.statusText);
+		}
+	}
+	console.log(tweets);
 	}
   
 	// Funktion zum Liken eines Tweets
@@ -112,6 +127,7 @@
   
 	// Ruft die Funktion beim Laden der Komponente auf
 	onMount(fetchTweets);
+	onMount(fetchComments)
 	onMount(async () => {
 	  // Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
 	  loggedInUserName = await localStorage.getItem('loggedInUserName');
