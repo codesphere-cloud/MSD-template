@@ -13,7 +13,7 @@ run:
   frontend:
     steps:
       - command: cd frontend/ && npm run build
-      - command: cd frontend/ && npm run dev
+      - command: cd frontend/ && npm run start
     plan: 8
     replicas: 1
     network:
