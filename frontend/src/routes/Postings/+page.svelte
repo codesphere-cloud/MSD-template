@@ -190,7 +190,7 @@
 			{#if tweet.comments && tweet.comments.length > 0}
 			  {#each tweet.comments as comment}
 				<div>
-				  <p>{comment.text}</p>
+				  <p>{comment.comment}</p>
 				  <p>By: {comment.user_name}</p>
 				</div>
 			  {/each}
