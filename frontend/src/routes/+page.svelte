@@ -15,7 +15,7 @@
 			<picture>
 				<source srcset={welcome} type="image/webp" />
 				<img src={welcome_fallback} alt="Welcome" />
-				<h1>{userName}</h1>
+				<h1 let:userName={userName}>{userName}</h1>
 			</picture>
 		</span>
 
