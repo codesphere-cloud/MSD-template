@@ -41,7 +41,7 @@
 		await fetchTweets();
 		// Formulardaten zurücksetzen
 		newTweet = {
-		  userId: null,
+		  userId: loggedInUserId,
 		  title: '',
 		  likes: null,
 		  dislikes: null,
@@ -71,10 +71,6 @@
   
   <!-- Formular zum Erstellen eines neuen Tweets -->
   <form on:submit|preventDefault={createTweet}>
-	<label>
-	  User ID:
-	  <input type="number" bind:value={newTweet.userId} required />
-	</label>
 	<label>
 	  Title:
 	  <input type="text" bind:value={newTweet.title} required />
