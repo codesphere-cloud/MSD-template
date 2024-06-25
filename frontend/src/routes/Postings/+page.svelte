@@ -4,6 +4,7 @@
   
 	let loggedInUserName;
 	let loggedInUserId;
+	let newCommentText = '';
 	
 	let tweets = [];
 	let newTweet = {
