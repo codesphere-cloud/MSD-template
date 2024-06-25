@@ -162,7 +162,7 @@
 			</div>
 			<p>OP: {tweet.user_name}</p>
 		  </div>
-		  <div class="comment-section" style="display: {tweet.showComments ? 'block' : 'none'};">
+		  <div style="display: {tweet.showComments ? 'block' : 'none'};">
 			{#if tweet.comments && tweet.comments.length > 0}
 			  {#each tweet.comments as comment}
 				<div>
@@ -211,10 +211,6 @@
 	  border-radius: 10px;
 	  padding: 5px;
 	  background-color: #f0f0f0;
-	}
-  
-	.comment-section {
-	  display: none;
 	}
   </style>
   
