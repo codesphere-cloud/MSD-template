@@ -45,7 +45,7 @@ pub struct Comment {
 pub struct NewComment {
     pub userId: Option<i32>,
     pub tweetId: i32,
-    pub text: String,
+    pub comment: String,
 }
 
 // Struktur für die Datenbankabfrage von `tweets` zusammen mit `users`
