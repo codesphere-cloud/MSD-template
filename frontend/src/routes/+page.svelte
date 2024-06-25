@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 
 	$: userName = '';
+	let userId = '';
 
 	onMount(async () => {
 		// Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
