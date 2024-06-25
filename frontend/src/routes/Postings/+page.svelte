@@ -9,8 +9,6 @@
 	let newTweet = {
 	  userId: null,
 	  title: '',
-	  likes: null,
-	  dislikes: null,
 	  text: ''
 	};
 	
@@ -45,8 +43,6 @@
 		newTweet = {
 		  userId: loggedInUserId,
 		  title: '',
-		  likes: null,
-		  dislikes: null,
 		  text: ''
 		};
 		dispatch('tweetCreated');
