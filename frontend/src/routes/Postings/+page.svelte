@@ -107,6 +107,7 @@
 	function openComments(tweetId) {
 	  const tweet = tweets.find(t => t.id === tweetId);
 	  tweet.showComments = !tweet.showComments;
+	  tweets = [...tweets];
 	  console.log(tweets);
 	}
   
