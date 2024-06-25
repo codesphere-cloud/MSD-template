@@ -19,22 +19,19 @@ async fn hello() -> impl Responder {
     "Hello, world!!!!"
 }
 
-// Handler zum Erstellen eines neuen Benutzers
 #[post("/backend/users")]
 async fn create_user(new_user: web::Json<User>) -> impl Responder {
     let mut conn = establish_connection();
-    
-    // Fügen Sie den neuen Benutzer ein und erhalten Sie die ID des eingefügten Benutzers
-    let inserted_user_id: i32 = diesel::insert_into(users_dsl::users)
+
+    // Fügen Sie den neuen Benutzer ein
+    diesel::insert_into(users)
         .values(new_user.into_inner())
-        .returning(users_dsl::id)
-        .get_result(&mut conn)
+        .execute(&mut conn)
         .expect("Error inserting new user");
 
-    // Nach Bedarf können Sie auch den gesamten Benutzer abrufen, nicht nur die ID
-    let inserted_user = users_dsl::users.find(inserted_user_id)
-        .first::<User>(&mut conn)
-        .expect("Error loading inserted user");
+    // Manuell die ID des eingefügten Benutzers abrufen
+    let inserted_user = users.order(id.desc()).first::<User>(&mut conn)
+        .expect("Failed to fetch inserted user");
 
     HttpResponse::Created().json(inserted_user)
 }
