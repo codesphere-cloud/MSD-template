@@ -5,7 +5,7 @@
 	let userLoggedIn;
 	$: userName = '';
 
-	onMount(() => {
+	onMount(async () => {
 		// Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
 		const loggedInUser = await localStorage.getItem('loggedInUser');
 		console.log('loggedInUser:', loggedInUser);
