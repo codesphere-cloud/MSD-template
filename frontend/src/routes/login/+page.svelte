@@ -18,9 +18,4 @@
         align-items: center;
         height: 100vh;
     }
-
-    .or-text {
-        margin: 0 5rem;
-        font-size: 2rem;
-    }
 </style>
