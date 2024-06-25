@@ -156,7 +156,7 @@ async fn like_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
 
     // Aktualisieren Sie den Tweet in der Datenbank
     diesel::update(tweets.filter(id.eq(tweet_id)))
-        .set(tweets_dsl::likes.eq(tweets_dsl::tweet.likes))
+        .set(tweets_dsl::likes.eq(tweets_dsl::tweets.likes))
         .execute(&connection)
         .expect("Error updating tweet likes");
 
@@ -175,15 +175,15 @@ async fn dislike_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
         .expect("Error loading tweet");
 
     // Increment the dislike count
-    if let Some(current_dislikes) = tweet.dislikes {
+    if let Some(current_dislikes) = tweets_dsl::tweets.dislikes {
         tweet.dislikes = Some(current_dislikes + 1);
     } else {
         tweet.dislikes = Some(1);
     }
 
     // Aktualisieren Sie den Tweet in der Datenbank
-    diesel::update(tweets.filter(id.eq(tweet_id)))
-        .set(dislikes.eq(tweets_dsl::tweet.dislikes))
+    diesel::update(tweets_dsl::tweets.filter(id.eq(tweet_id)))
+        .set(dislikes.eq(tweets_dsl::tweets.dislikes))
         .execute(&connection)
         .expect("Error updating tweet dislikes");
 
