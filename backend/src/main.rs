@@ -136,6 +136,60 @@ async fn get_comments_for_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     HttpResponse::Ok().json(comments_list)
 }
 
+#[put("/backend/tweets/{tweet_id}/like")]
+async fn like_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
+
+    let connection = establish_connection();
+
+    // Zuerst den aktuellen Tweet aus der Datenbank laden
+    let mut tweet = tweets
+        .filter(id.eq(tweet_id))
+        .first::<Tweet>(&connection)
+        .expect("Error loading tweet");
+
+    // Increment the like count
+    if let Some(current_likes) = tweet.likes {
+        tweet.likes = Some(current_likes + 1);
+    } else {
+        tweet.likes = Some(1);
+    }
+
+    // Aktualisieren Sie den Tweet in der Datenbank
+    diesel::update(tweets.filter(id.eq(tweet_id)))
+        .set(likes.eq(tweet.likes))
+        .execute(&connection)
+        .expect("Error updating tweet likes");
+
+    HttpResponse::Ok().body("Tweet likes incremented")
+}
+
+#[put("/backend/tweets/{tweet_id}/dislike")]
+async fn dislike_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
+
+    let connection = establish_connection();
+
+    // Zuerst den aktuellen Tweet aus der Datenbank laden
+    let mut tweet = tweets
+        .filter(id.eq(tweet_id))
+        .first::<Tweet>(&connection)
+        .expect("Error loading tweet");
+
+    // Increment the dislike count
+    if let Some(current_dislikes) = tweet.dislikes {
+        tweet.dislikes = Some(current_dislikes + 1);
+    } else {
+        tweet.dislikes = Some(1);
+    }
+
+    // Aktualisieren Sie den Tweet in der Datenbank
+    diesel::update(tweets.filter(id.eq(tweet_id)))
+        .set(dislikes.eq(tweet.dislikes))
+        .execute(&connection)
+        .expect("Error updating tweet dislikes");
+
+    HttpResponse::Ok().body("Tweet dislikes incremented")
+}
+
 
 // Datenbankverbindung initialisieren
 fn establish_connection() -> SqliteConnection {
@@ -158,6 +212,10 @@ async fn main() -> std::io::Result<()> {
             .service(update_user)
             .service(create_tweet)
             .service(get_tweets)
+            .service(like_tweet)
+            .service(dislike_tweet)
+            .service(create_comment)
+            .service(get_comments_for_tweet)
             .service(hello)
     })
     .bind("0.0.0.0:3000")?
