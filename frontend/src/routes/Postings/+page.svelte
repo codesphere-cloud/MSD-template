@@ -6,7 +6,7 @@
 	let loggedInUserId;
 	let newCommentText = '';
 	
-	let tweets = [];
+	$: tweets = [];
 	let newTweet = {
 	  userId: loggedInUserId,
 	  title: '',
