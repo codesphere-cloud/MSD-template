@@ -16,6 +16,8 @@ pub struct Tweet {
     pub userId: Option<i32>,
     pub title: String,
     pub text: String,
+    pub like: Option<i32>,
+    pub dislike: Option<i32>,
 }
 
 #[derive(Debug, Insertable, Serialize, Deserialize)]
@@ -33,6 +35,8 @@ pub struct Comment {
     pub id: Option<i32>,
     pub userId: Option<i32>,
     pub tweetId: i32,
+    pub likes: Option<i32>,
+    pub dislikes: Option<i32>,
 }
 
 #[derive(Debug, Insertable, Serialize, Deserialize)]

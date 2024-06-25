@@ -3,7 +3,7 @@ extern crate diesel;
 extern crate diesel_migrations;
 
 use actix_web::{get, post, put, web, App, HttpServer, Responder, HttpResponse};
-use crate::models::{User, Tweet, NewTweet};
+use crate::models::{User, Tweet, NewTweet, Comment, NewComment};
 use diesel::prelude::*;
 use diesel::sqlite::SqliteConnection;
 use crate::schema::{users::dsl as users_dsl, tweets::dsl as tweets_dsl, comments::dsl as comments_dsl};
