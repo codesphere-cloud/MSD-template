@@ -61,7 +61,7 @@ pub struct TweetWithUser {
 }
 
 #[derive(Debug, Queryable, Insertable, Serialize, Deserialize, AsChangeset)]
-pub struct CommentWithUser {
+pub struct Ccomment_with_user {
     pub id: Option<i32>,
     pub userId: Option<i32>,
     pub tweetId: Option<i32>,
