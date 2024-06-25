@@ -94,7 +94,6 @@ async fn get_tweets() -> impl Responder {
     let tweets_list = tweets_dsl::tweets
         .load::<Tweet>(&mut conn)
         .expect("Error loading tweets");
-
     HttpResponse::Ok().json(tweets_list)
 }
 
