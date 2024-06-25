@@ -7,10 +7,12 @@
 	
 	let tweets = [];
 	let newTweet = {
-	  userId: null,
-	  title: '',
-	  text: ''
-	};
+		  userId: loggedInUserId,
+		  title: '',
+		  likes: 0,
+		  dislikes: 0,
+		  text: ''
+		};
 	
 	const dispatch = createEventDispatcher();
   
@@ -43,6 +45,8 @@
 		newTweet = {
 		  userId: loggedInUserId,
 		  title: '',
+		  likes: 0,
+		  dislikes: 0,
 		  text: ''
 		};
 		dispatch('tweetCreated');
