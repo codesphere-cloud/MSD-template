@@ -7,8 +7,8 @@
 
 	onMount(async () => {
 		// Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
-		const loggedInUserName = await JSON.parse(localStorage.getItem('loggedInUserName'));
-		const loggedInUserId = await JSON.parse(localStorage.getItem('loggedInUserId'));
+		const loggedInUserName = await localStorage.getItem('loggedInUserName');
+		const loggedInUserId = await localStorage.getItem('loggedInUserId');
 		if (loggedInUserName && loggedInUserId) {
 			userName = loggedInUserName;
 			userId = loggedInUserId;
