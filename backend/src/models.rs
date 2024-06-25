@@ -15,8 +15,8 @@ pub struct Tweet {
     pub id: Option<i32>,
     pub userId: Option<i32>,
     pub title: String,
-    pub like: Option<i32>,
-    pub dislike: Option<i32>,
+    pub likes: Option<i32>,
+    pub dislikes: Option<i32>,
     pub text: String,
 }
 
