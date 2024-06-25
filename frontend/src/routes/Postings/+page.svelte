@@ -1,6 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
 	import { createEventDispatcher } from 'svelte';
+
+	let loggedInUserName;
+	let loggedInUserId;
   
 	let tweets = [];
 	let newTweet = {
@@ -10,8 +13,7 @@
 	  dislikes: null,
 	  text: ''
 	};
-	let loggedInUserName;
-	let loggedInUserId;
+	
 	const dispatch = createEventDispatcher();
   
 	// Funktion zum Abrufen der Tweets von der API
