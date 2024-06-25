@@ -148,14 +148,14 @@ async fn like_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
         .expect("Error loading tweet");
 
     // Increment the like count
-    if let Some(current_likes) = tweets_dsl::tweet.likes {
+    if let Some(current_likes) = tweets_dsl::tweets.likes {
         tweet.likes = Some(current_likes + 1);
     } else {
         tweet.likes = Some(1);
     }
 
     // Aktualisieren Sie den Tweet in der Datenbank
-    diesel::update(tweets.filter(id.eq(tweet_id)))
+    diesel::update(tweets_dsl::tweets.filter(id.eq(tweet_id)))
         .set(tweets_dsl::likes.eq(tweets_dsl::tweets.likes))
         .execute(&connection)
         .expect("Error updating tweet likes");
