@@ -1,6 +1,16 @@
 <script>
 	import Header from './Header.svelte';
 	import './styles.css';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		// make sure to have the login Page loaded first, 
+		// when user has no account or the user have no login data located in the localStorage of the browser
+		const loggedInUser = localStorage.getItem('loggedInUser');
+		if (!loggedInUser && window.location.pathname !== '/login' && window.location.pathname !== '/signup') {
+		window.location.href = '/login';
+		}
+	});
 </script>
 
 <div class="app">
