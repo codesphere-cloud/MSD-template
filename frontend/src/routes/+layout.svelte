@@ -2,28 +2,38 @@
 	import Header from './Header.svelte';
 	import './styles.css';
 	import { onMount } from 'svelte';
+	let userLoggedIn;
 
 	onMount(() => {
-		// make sure to have the login Page loaded first, 
-		// when user has no account or the user have no login data located in the localStorage of the browser
+		// Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
 		const loggedInUser = localStorage.getItem('loggedInUser');
-		if (!loggedInUser && window.location.pathname !== '/login' && window.location.pathname !== '/signup') {
-		window.location.href = '/login';
+		if (loggedInUser) {
+		userLoggedIn = true;
+		} else {
+		userLoggedIn = false;
+		// Umleitung zur Login-Seite, wenn kein Benutzer angemeldet ist
+		if (window.location.pathname !== '/login') {
+			window.location.href = '/login';
+			}
 		}
 	});
 </script>
 
-<div class="app">
-	<Header />
 
-	<main>
-		<slot />
-	</main>
+	<div class="app">
+		{#if userLoggedIn}
+			<Header />
+		{/if}
 
-	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-	</footer>
-</div>
+		<main>
+			<slot />
+		</main>
+
+		<footer>
+			<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+		</footer>
+	</div>
+
 
 <style>
 	.app {
