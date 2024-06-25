@@ -3,8 +3,7 @@ extern crate diesel;
 extern crate diesel_migrations;
 
 use actix_web::{get, post, put, web, App, HttpServer, Responder, HttpResponse};
-use crate::models::{User, Tweet, NewTweet, Comment, NewComment, TweetWithUser, CommentWithUserName};
-use crate::models::CommentWithUserName;
+use crate::models::{User, Tweet, NewTweet, Comment, NewComment, TweetWithUser, CommentWithUser};
 use diesel::prelude::*;
 use diesel::sqlite::SqliteConnection;
 use crate::schema::{users::dsl as users_dsl, tweets, tweets::dsl as tweets_dsl, comments::dsl as comments_dsl};
@@ -140,7 +139,7 @@ async fn get_comments_for_tweet(tweet_id: web::Path<i32>) -> impl Responder {
             comments_dsl::dislikes,
             users_dsl::name,
         ))
-        .load::<CommentWithUserName>(&mut conn)
+        .load::<CommentWithUser>(&mut conn)
         .expect("Error loading comments with user names");
 
     HttpResponse::Ok().json(results)
