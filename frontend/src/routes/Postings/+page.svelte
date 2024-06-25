@@ -55,6 +55,34 @@
 		console.error('Error creating tweet:', response.statusText);
 	  }
 	}
+
+	// Funktion zum Liken eines Tweets
+    async function likeTweet(tweetId) {
+        const response = await fetch(`https://58260-3000.2.codesphere.com/backend/tweets/${tweetId}/like`, {
+            method: 'PUT',
+        });
+
+        if (response.ok) {
+            // Wenn erfolgreich, aktualisiere die Tweets
+            await fetchTweets();
+        } else {
+            console.error('Error liking tweet:', response.statusText);
+        }
+    }
+
+    // Funktion zum Disliken eines Tweets
+    async function dislikeTweet(tweetId) {
+        const response = await fetch(`https://58260-3000.2.codesphere.com/backend/tweets/${tweetId}/dislike`, {
+            method: 'PUT',
+        });
+
+        if (response.ok) {
+            // Wenn erfolgreich, aktualisiere die Tweets
+            await fetchTweets();
+        } else {
+            console.error('Error disliking tweet:', response.statusText);
+        }
+    }
   
 	// Ruft die Funktion beim Laden der Komponente auf
 	onMount(fetchTweets);
@@ -90,19 +118,21 @@
 	<p>No tweets available.</p>
   {:else}
 	<ul>
-	  {#each tweets as tweet}
-	  <div class="tweetBox">
-		<strong>Title: {tweet.title}</strong>
-		<p>{tweet.text}</p>
-		<div class="info-section-tweet">
-			<div class="likeContainer">
-				<p class="likeButton">Likes: {tweet.likes ?? 0}</p>
-				<p class="likeButton">Dislikes: {tweet.dislikes ?? 0}</p>
+		{#each tweets as tweet}
+			<div class="tweetBox">
+				<strong>Title: {tweet.title}</strong>
+				<p>{tweet.text}</p>
+				<div class="info-section-tweet">
+					<div class="likeContainer">
+						<button on:click={() => likeTweet(tweet.id)}>Like</button>
+						<p class="likeButton">Likes: {tweet.likes ?? 0}</p>
+						<button on:click={() => dislikeTweet(tweet.id)}>Dislike</button>
+						<p class="likeButton">Dislikes: {tweet.dislikes ?? 0}</p>
+					</div>
+					<p>OP: {tweet.user_name}</p>
+				</div>
 			</div>
-			<p>OP: {tweet.user_name}</p>
-		</div>
-	  </div>
-	  {/each}
+		{/each}
 	</ul>
   {/if}
   
