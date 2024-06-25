@@ -114,8 +114,8 @@
 	// Funktion zum Erstellen eines neuen Kommentars zu einem Tweet
 	async function createComment(userId, tweetId, newCommentText) {
 		let newComment = {
-			userId: userId,
-			tweetId: tweetId,
+			userId: parseInt(userId),
+			tweetId: parseInt(tweetId),
 			text: newCommentText
 		};
 	  const response = await fetch('https://58260-3000.2.codesphere.com/backend/comments', {
