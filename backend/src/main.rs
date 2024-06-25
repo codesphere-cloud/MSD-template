@@ -28,7 +28,7 @@ async fn create_user(new_user: web::Json<User>) -> impl Responder {
         .execute(&mut conn)
         .expect("Error inserting new user");
 
-    HttpResponse::Created().json(inserted_user)
+    HttpResponse::Ok().json(inserted_user)
 }
 
 // Handler zum Abrufen aller Benutzer
