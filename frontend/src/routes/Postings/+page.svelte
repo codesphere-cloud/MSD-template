@@ -129,7 +129,7 @@
 						</div>
 						
 						<div on:click={() => dislikeTweet(tweet.id)} role="presentation">
-							<p class="likeButton">Dislikes: {tweet.likes ?? 0}</p>
+							<p class="likeButton">Dislikes: {tweet.dislikes ?? 0}</p>
 						</div>
 					</div>
 					<p>OP: {tweet.user_name}</p>
