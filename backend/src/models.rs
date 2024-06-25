@@ -15,9 +15,9 @@ pub struct Tweet {
     pub id: Option<i32>,
     pub userId: Option<i32>,
     pub title: String,
-    pub text: String,
     pub like: Option<i32>,
     pub dislike: Option<i32>,
+    pub text: String,
 }
 
 #[derive(Debug, Insertable, Serialize, Deserialize)]
