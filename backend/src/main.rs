@@ -138,7 +138,7 @@ async fn get_comments_for_tweet(tweet_id: web::Path<i32>) -> impl Responder {
 
 // Handler zum Liken eines Tweets
 #[put("/backend/tweets/{tweet_id}/like")]
-async fn like_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
+async fn like_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     let connection = establish_connection();
 
     // Holen Sie sich den aktuellen Like-Zähler des Tweets
@@ -160,7 +160,7 @@ async fn like_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
 
 // Handler zum Disliken eines Tweets
 #[put("/backend/tweets/{tweet_id}/dislike")]
-async fn dislike_tweet(web::Path(tweet_id): web::Path<i32>) -> impl Responder {
+async fn dislike_tweet(tweet_id: web::Path<i32>) -> impl Responder {
     let connection = establish_connection();
 
     // Holen Sie sich den aktuellen Dislike-Zähler des Tweets
