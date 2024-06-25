@@ -116,7 +116,7 @@
 		let newComment = {
 			userId: parseInt(userId),
 			tweetId: parseInt(tweetId),
-			text: newCommentText
+			comment: newCommentText
 		};
 	  const response = await fetch('https://58260-3000.2.codesphere.com/backend/comments', {
 		method: 'POST',
