@@ -1,5 +1,4 @@
 <script>
-	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
 	import { onMount } from 'svelte';
@@ -34,18 +33,21 @@
 			<picture>
 				<source srcset={welcome} type="image/webp" />
 				<img src={welcome_fallback} alt="Welcome" />
-				<h1>{userName}</h1>
 			</picture>
 		</span>
+		<h1>{userName}</h1>
 
-		to your new<br />SvelteKit app
+		Welcome to a Multi Server Deployment with Codesphere!
 	</h1>
 
 	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
+		This is the frontend Component interacting with the backend component. <br>
+		Feel free to create a post! :)
+
+		Also, if you want to learn Svelte or Rust you can adopt this template as a project. <br>
+		Just fork the repository and start coding!
 	</h2>
 
-	<Counter />
 </section>
 
 <style>

@@ -6,8 +6,6 @@
 </script>
 
 <div class="container">
-    <LogIn />
-    <strong class="or-text">or</strong>
     <SignUp />
 </div>
 
