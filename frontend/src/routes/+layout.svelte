@@ -3,12 +3,14 @@
 	import './styles.css';
 	import { onMount } from 'svelte';
 	let userLoggedIn;
+	let userName = '';
 
 	onMount(() => {
 		// Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
 		const loggedInUser = localStorage.getItem('loggedInUser');
 		if (loggedInUser) {
 		userLoggedIn = true;
+		userName = loggedInUser;
 		} else {
 		userLoggedIn = false;
 		// Umleitung zur Login-Seite, wenn kein Benutzer angemeldet ist
