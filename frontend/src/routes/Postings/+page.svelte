@@ -26,6 +26,7 @@
 	  } else {
 		console.error('Error fetching tweets:', response.statusText);
 	  }
+	  fetchComments();
 	}
   
 	// Funktion zum Erstellen eines neuen Tweets
@@ -127,7 +128,6 @@
   
 	// Ruft die Funktion beim Laden der Komponente auf
 	onMount(fetchTweets);
-	onMount(fetchComments)
 	onMount(async () => {
 	  // Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
 	  loggedInUserName = await localStorage.getItem('loggedInUserName');
