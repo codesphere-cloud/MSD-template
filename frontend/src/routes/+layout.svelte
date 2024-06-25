@@ -7,17 +7,17 @@
 
 	onMount(async () => {
 		// Überprüfe, ob ein Benutzer im Local Storage gespeichert ist
-		const loggedInUser = await localStorage.getItem('loggedInUser');
+		const loggedInUser = await localStorage.getItem('loggedInUserName');
 		console.log('loggedInUser:', loggedInUser);
 		if (loggedInUser) {
-		userLoggedIn = true;
-		userName = loggedInUser;
+			userLoggedIn = true;
+			userName = loggedInUser;
 		} else {
-		userLoggedIn = false;
-		// Umleitung zur Login-Seite, wenn kein Benutzer angemeldet ist
-		if (window.location.pathname !== '/login') {
-			window.location.href = '/login';
-			}
+			userLoggedIn = false;
+			// Umleitung zur Login-Seite, wenn kein Benutzer angemeldet ist
+			if (window.location.pathname !== '/login') {
+				window.location.href = '/login';
+				}
 		}
 	});
 </script>
