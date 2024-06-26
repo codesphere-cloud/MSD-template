@@ -14,7 +14,7 @@
         };
 
         try {
-            const response = await fetch('https://58260-3000.2.codesphere.com/backend/users', {
+            const response = await fetch(`/backend/users`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

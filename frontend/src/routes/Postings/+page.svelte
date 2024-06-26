@@ -19,7 +19,7 @@
   
 	// Funktion zum Abrufen der Tweets von der API
 	async function fetchTweets() {
-	  const response = await fetch('https://58260-3000.2.codesphere.com/backend/tweets');
+	  const response = await fetch('/backend/tweets');
 	  if (response.ok) {
 		tweets = await response.json();
 		tweets.reverse();
@@ -33,7 +33,7 @@
 	async function createTweet() {
 	  newTweet.userId = loggedInUserId;  // Setzt die Benutzer-ID vor dem Senden des Tweets
   
-	  const response = await fetch('https://58260-3000.2.codesphere.com/backend/tweets', {
+	  const response = await fetch('/backend/tweets', {
 		method: 'POST',
 		headers: {
 		  'Content-Type': 'application/json'
@@ -77,7 +77,7 @@
   
 	// Funktion zum Liken eines Tweets
 	async function likeTweet(tweetId) {
-	  const response = await fetch(`https://58260-3000.2.codesphere.com/backend/tweets/${tweetId}/like`, {
+	  const response = await fetch(`/backend/tweets/${tweetId}/like`, {
 		method: 'PUT',
 	  });
   
@@ -91,7 +91,7 @@
   
 	// Funktion zum Disliken eines Tweets
 	async function dislikeTweet(tweetId) {
-	  const response = await fetch(`https://58260-3000.2.codesphere.com/backend/tweets/${tweetId}/dislike`, {
+	  const response = await fetch(`/backend/tweets/${tweetId}/dislike`, {
 		method: 'PUT',
 	  });
   
@@ -118,7 +118,7 @@
 			tweetId: parseInt(tweetId),
 			comment: newCommentText
 		};
-	  const response = await fetch('https://58260-3000.2.codesphere.com/backend/comments', {
+	  const response = await fetch(`/backend/comments`, {
 		method: 'POST',
 		headers: {
 		  'Content-Type': 'application/json'
