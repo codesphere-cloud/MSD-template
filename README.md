@@ -1,3 +1,1 @@
-# MSD_template
-# MSD-template
-# MSD-template
+# Template to showcase how landscape deployments in Codesphere work
