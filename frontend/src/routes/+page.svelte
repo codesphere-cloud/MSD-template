@@ -28,22 +28,33 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<div class="welcome">
-			
-	<img src={welcome_fallback} alt="Welcome" />
-	
+<div class="page">
+
+	<div class="welcome">
+				
+		<img src={welcome_fallback} alt="Welcome" />
+		
+	</div>
+
+	<section>
+		<h1>{userName}</h1>
+
+		<h1>
+			Welcome to a Landscape Deployment with Codesphere!
+		</h1>
+
+	</section>
+
 </div>
-
-<section>
-	<h1>{userName}</h1>
-
-	<h1>
-		Welcome to a Landscape Deployment with Codesphere!
-	</h1>
-
-</section>
-
 <style>
+
+	.page {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	
 	section {
 		display: flex;
 		flex-direction: column;
