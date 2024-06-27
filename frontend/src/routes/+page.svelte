@@ -74,5 +74,7 @@
 	.welcome img {
 		top: 0;
 		display: block;
+		width: 50%;
+		height: auto;
 	}
 </style>
