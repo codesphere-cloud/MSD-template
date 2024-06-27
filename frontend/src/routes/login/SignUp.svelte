@@ -45,24 +45,33 @@
     }
 </script>
 
-<div>
-    <h1>Sign Up</h1>
-    <form class="form-container" on:submit|preventDefault={signUp}>
-        <label for="userName">User name</label>
-        <input type="userName" id="userName" name="userName" required>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Sign Up</button>
-    </form>
+<div class="signup-container">
+    <div>
+        <h1>Sign Up</h1>
+        <form class="form-container" on:submit|preventDefault={signUp}>
+            <label for="userName">User name</label>
+            <input type="userName" id="userName" name="userName" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <strong>
+        Please dont use any of your real passwords! <br>
+        This is a demo application and the passwords are stored in plain text!
+    </strong>
 </div>
-
-<strong>
-    Please dont use any of your real passwords! <br>
-    This is a demo application and the passwords are stored in plain text!
-</strong>
-
 <style>
     .form-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .signup-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
