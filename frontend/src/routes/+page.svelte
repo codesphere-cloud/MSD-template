@@ -79,5 +79,7 @@
 		display: block;
 		width: 65%;
 		height: auto;
+		justify-self: center;
+		align-self: center;
 	}
 </style>
