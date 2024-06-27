@@ -63,13 +63,11 @@
 	}
 
 	h1 {
-		position: absolute;
 		width: 100%;
 	}
 
 	.welcome {
-		position: relative;
-		display: flex;
+		display: block;
 		justify-content: center;
 		align-items: center;
 		height: 0;
@@ -77,9 +75,7 @@
 	}
 
 	.welcome img {
-		position: relative;
 		top: 0;
-		display: block;
 		width: 65%;
 		height: auto;
 		justify-self: center;
