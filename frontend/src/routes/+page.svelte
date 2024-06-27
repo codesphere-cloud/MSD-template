@@ -29,14 +29,15 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
+<div class="welcome">
+			
+	<img src={welcome_fallback} alt="Welcome" />
+	
+</div>
+
 <section>
 
 	<h1>
-		<div class="welcome">
-			
-			<img src={welcome_fallback} alt="Welcome" />
-			
-		</div>
 
 		<h1>{userName}</h1>
 
@@ -70,7 +71,6 @@
 		display: block;
 		justify-content: center;
 		align-items: center;
-		height: 0;
 		padding: 0 0 calc(100% * 495 / 2048) 0;
 	}
 
