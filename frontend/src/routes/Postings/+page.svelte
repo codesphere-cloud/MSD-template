@@ -62,7 +62,7 @@
 	async function fetchComments() {
 	for (let i = 0; i < tweets.length; i++) {
 		const tweet = tweets[i];
-		const response = await fetch(`https://58260-3000.2.codesphere.com/backend/tweets/${tweet.id}/comments`);
+		const response = await fetch(`/backend/tweets/${tweet.id}/comments`);
 		if (response.ok) {
 		const comments = await response.json();
 		// Füge die geladenen Kommentare dem entsprechenden Tweet hinzu
