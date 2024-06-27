@@ -57,7 +57,6 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		flex: 0.6;
 	}
 
 	h1 {
@@ -68,6 +67,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		margin-top: 30px;
 	}
 
 	.welcome img {
