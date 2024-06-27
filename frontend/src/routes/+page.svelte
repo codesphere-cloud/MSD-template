@@ -68,10 +68,9 @@
 	}
 
 	.welcome {
-		display: block;
+		display: flex;
 		justify-content: center;
 		align-items: center;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
 	}
 
 	.welcome img {
