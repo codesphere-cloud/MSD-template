@@ -38,7 +38,7 @@
 				<img src={welcome_fallback} alt="Welcome" />
 			</picture>
 		</span>
-		
+
 		<h1>{userName}</h1>
 
 		Welcome to a Landscape Deployment with Codesphere!
@@ -68,7 +68,7 @@
 	}
 
 	.welcome {
-		display: flex;
+		display: block;
 		justify-content: center;
 		align-items: center;
 		height: 0;
