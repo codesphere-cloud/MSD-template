@@ -41,14 +41,6 @@
 		Welcome to a Landscape Deployment with Codesphere!
 	</h1>
 
-	<h2>
-		This is the frontend Component interacting with the backend component. <br>
-		Feel free to create a post! 
-
-		Also, if you want to learn Svelte or Rust you can adopt this template as a project. <br>
-		Just fork the repository and start coding!
-	</h2>
-
 </section>
 
 <style>
