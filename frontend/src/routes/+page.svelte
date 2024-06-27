@@ -63,6 +63,7 @@
 	}
 
 	h1 {
+		position: relative;
 		width: 100%;
 	}
 
