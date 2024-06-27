@@ -35,11 +35,9 @@
 </div>
 
 <section>
+	<h1>{userName}</h1>
 
 	<h1>
-
-		<h1>{userName}</h1>
-
 		Welcome to a Landscape Deployment with Codesphere!
 	</h1>
 
