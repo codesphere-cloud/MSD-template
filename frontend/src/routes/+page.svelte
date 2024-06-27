@@ -30,13 +30,14 @@
 </svelte:head>
 
 <section>
+	<span class="welcome">
+		<picture>
+			<source srcset={welcome} type="image/webp" />
+			<img src={welcome_fallback} alt="Welcome" />
+		</picture>
+	</span>
+
 	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
 		<h1>{userName}</h1>
 
 		Welcome to a Landscape Deployment with Codesphere!
@@ -66,7 +67,9 @@
 	}
 
 	.welcome {
-		display: block;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		height: 0;
 		padding: 0 0 calc(100% * 495 / 2048) 0;
 	}
@@ -74,7 +77,7 @@
 	.welcome img {
 		top: 0;
 		display: block;
-		width: 50%;
+		width: 65%;
 		height: auto;
 	}
 </style>
