@@ -67,6 +67,7 @@
 	}
 
 	.welcome {
+		position: absolute;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -75,6 +76,7 @@
 	}
 
 	.welcome img {
+		position: relative;
 		top: 0;
 		display: block;
 		width: 65%;
