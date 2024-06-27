@@ -39,7 +39,7 @@
 		</span>
 		<h1>{userName}</h1>
 
-		Welcome to a Multi Server Deployment with Codesphere!
+		Welcome to a Landscape Deployment with Codesphere!
 	</h1>
 
 	<h2>

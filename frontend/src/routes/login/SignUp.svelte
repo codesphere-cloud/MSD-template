@@ -56,6 +56,11 @@
     </form>
 </div>
 
+<strong>
+    Please dont use any of your real passwords! <br>
+    This is a demo application and the passwords are stored in plain text!
+</strong>
+
 <style>
     .form-container {
         display: flex;
