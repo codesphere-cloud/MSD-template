@@ -32,12 +32,11 @@
 <section>
 
 	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
+		<div class="welcome">
+			
+			<img src={welcome_fallback} alt="Welcome" />
+			
+		</div>
 
 		<h1>{userName}</h1>
 
