@@ -63,12 +63,12 @@
 	}
 
 	h1 {
-		position: relative;
+		position: absolute;
 		width: 100%;
 	}
 
 	.welcome {
-		position: absolute;
+		position: relative;
 		display: flex;
 		justify-content: center;
 		align-items: center;
