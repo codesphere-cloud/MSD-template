@@ -1,5 +1,4 @@
 <script>
-	import welcome from '$lib/images/codesphere-welcome.png';
 	import welcome_fallback from '$lib/images/codesphere-welcome.png';
 	import { onMount } from 'svelte';
 
